@@ -1,18 +1,18 @@
 <template>
     <div class="card">
-        <form class="form-container">
+        <form @submit.prevent="createUser" class="form-container">
             <h1>Register Page</h1>
         <div class="form-group">
-            <label for="txt1">User Name</label> <br>
-            <input type="text">
+            <label for="uname">User Name</label> <br>
+            <input type="text" id="uname" v-model="formData.uName">
         </div>
         <div class="form-group">
-            <label for="txt1">Email</label> <br>
-            <input type="email" placeholder="john.moe@email.com">
+            <label for="email">Email</label> <br>
+            <input type="email" id="email" placeholder="john.moe@email.com" v-model="formData.uEmail">
         </div>
         <div class="form-group">
-            <label for="txt1"> Password</label> <br>
-            <input type="password">
+            <label for="pass"> Password</label> <br>
+            <input type="password" id="pass" v-model="formData.uPass">
         </div>
           <button type="submit" class="btn">Sign Up</button>
         </form>
@@ -23,11 +23,29 @@
 </template>
 
 <script>
-export default {
-    setup () {
-        
+import axios from 'axios';
 
-        return {}
+export default {
+    name:'createUser',
+    data () {
+        return{
+       formData :{
+            uName:'',
+            uEmail:'',
+            uPass:''
+       }
+        }
+    },
+    methods:{
+        createUser(){
+            axios.post('http://localhost:3000/signUp',this.formData)
+            .then(result=>{
+                console.log(result);
+            })
+            .catch(err=> {
+                console.log(err);
+            })
+        }
     }
 }
 </script>

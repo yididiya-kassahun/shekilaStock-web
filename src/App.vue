@@ -15,6 +15,7 @@ export default {
       <header>
         <nav class="navbar">
           <a><RouterLink :to="{path:'/'}">Home</RouterLink></a>
+          <a><RouterLink :to="{path:'cart'}">Cart</RouterLink></a>
           <a><RouterLink :to="{path:'signin'}">Sign In</RouterLink></a>
           <a><RouterLink :to="{path:'signup'}">Sign Up</RouterLink></a>
         </nav>
