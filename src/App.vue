@@ -6,6 +6,11 @@ export default {
   //  SignIn,
   //  SignUp
   // }
+  data(){
+    return{
+      userName:localStorage.getItem('userName')
+    }
+  }
 }
 </script>
 
@@ -18,6 +23,8 @@ export default {
           <a><RouterLink :to="{path:'cart'}">Cart</RouterLink></a>
           <a><RouterLink :to="{path:'signin'}">Sign In</RouterLink></a>
           <a><RouterLink :to="{path:'signup'}">Sign Up</RouterLink></a>
+          <a><RouterLink :to="{path:'add.product'}">Add Product</RouterLink></a>
+          <div class="user-name"> <b>{{ userName }}</b> </div>
         </nav>
       </header>
     </div>
@@ -58,6 +65,12 @@ export default {
   content: "";
   clear: both;
   display: table;
+}
+
+.user-name {
+  float: right; 
+  color: #fff;
+  padding: 15px;
 }
 
 </style>

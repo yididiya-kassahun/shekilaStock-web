@@ -15,10 +15,10 @@
             <input type="password" id="pass" v-model="formData.uPass">
         </div>
           <button type="submit" class="btn">Sign Up</button>
+          <div id="reg">
+              <p>Have account? <span><a href="/signin">Login here</a></span></p>
+          </div>
         </form>
-        <div id="reg">
-            <p>Have account? <span><a href="/">Login here</a></span></p>
-        </div>
       </div>
 </template>
 
@@ -38,9 +38,10 @@ export default {
     },
     methods:{
         createUser(){
-            axios.post('http://localhost:3000/signUp',this.formData)
+            axios.post('signUp',this.formData)
             .then(result=>{
                 console.log(result);
+                this.$router.push('/signin');
             })
             .catch(err=> {
                 console.log(err);
@@ -57,7 +58,7 @@ export default {
   box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
   transition: 0.3s;
   width: 50%;
-  height: 500px;
+  height: fit-content;
   margin-left:25%;
 }
 

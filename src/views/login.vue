@@ -1,29 +1,48 @@
 <template>
     <div class="card">
-       <form class="form-container">
+       <form @submit.prevent="loginUser" class="form-container">
            <h1>Login Page</h1>
        <div class="form-group">
            <label for="txt1">Email</label> <br>
-           <input type="text">
+           <input type="text" v-model="userData.email">
        </div>
        <div class="form-group">
            <label for="txt1"> Password</label> <br>
-           <input type="password">
+           <input type="password" v-model="userData.pass">
        </div>
          <button type="submit" class="btn">Sign In</button>
+         <div id="login">
+             <p>Have no account? <span><a href="/signup">Register here</a></span></p>
+         </div>
        </form>
-       <div id="reg">
-           <p>Have no account? <span><a href="/">Register here</a></span></p>
-       </div>
      </div>
 </template>
 
 <script>
-export default {
-   setup () {
-       
+import axios from 'axios';
 
-       return {}
+export default {
+   data () {
+       return {
+        userData:{
+            email:'',
+            pass:''
+        }
+       }
+   },
+   methods:{
+    loginUser(){
+       axios.post('signIn',this.userData)
+        .then(user=>{
+            localStorage.setItem('token',user.data.token);
+            localStorage.setItem('userName',user.data.userName);
+
+           return this.$router.push('/');
+        })
+        .catch(err=>{
+            console.log(err);
+        })
+    }
    }
 }
 </script>
@@ -34,7 +53,7 @@ export default {
  background-color: #fff;
  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
  transition: 0.3s;
- height: 400px;
+ height: fit-content;
  width: 40%;
  margin-left: 25%;
 }
@@ -63,7 +82,7 @@ input{
  font-size: medium;
 }
 
-#reg{
+#login{
    margin-left: 15%;
 }
 </style>
