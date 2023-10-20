@@ -5,6 +5,7 @@ import register from '../views/register.vue';
 import home from '../views/home.vue';
 import cart from '../views/Cart.vue';
 import AddProduct from '../views/AddProduct.vue';
+import productDetail from '../views/productDetail.vue';
 
 const routes = [
   {
@@ -31,6 +32,11 @@ const routes = [
     path:'/add.product',
     name:'add.product',
     component:AddProduct
+  },
+  {
+    path:'/product.detail/:id',
+    name:'product.detail',
+    component:productDetail
   }
 ];
 const router = createRouter({

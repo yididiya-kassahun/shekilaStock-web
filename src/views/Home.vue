@@ -30,7 +30,7 @@
         <img :src="baseUrl + product.image" width="200" height="200" alt="no image">
         <h4>{{ product.title }}</h4>
         <h5>Price: ${{ product.price }}</h5>
-        <button class="cartBtn">Add to cart</button>
+       <RouterLink :to="{path:`/product.detail/${product._id}`}"> <button class="cartBtn">Add to cart</button></RouterLink>
     </div>
    </div>
   </div>
