@@ -1,4 +1,5 @@
 <template>
+    <h4 style="display: flex;margin-left: 30%;">{{ message }}</h4>
     <div class="card">
        <form @submit.prevent="loginUser" class="form-container">
            <h1>Login Page</h1>
@@ -27,7 +28,8 @@ export default {
         userData:{
             email:'',
             pass:''
-        }
+        },
+        message: ''
        }
    },
    methods:{
@@ -36,11 +38,13 @@ export default {
         .then(user=>{
             localStorage.setItem('token',user.data.token);
             localStorage.setItem('userName',user.data.userName);
-
+            localStorage.setItem('isLoggedin',user.data.isLoggedin);
+            this.message = user.data.message;
            return this.$router.push('/');
         })
         .catch(err=>{
-            console.log(err);
+            console.log(err.message);
+            this.message = err.message;
         })
     }
    }

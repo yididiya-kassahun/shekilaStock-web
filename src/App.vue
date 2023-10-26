@@ -10,7 +10,13 @@ export default {
     return{
       userName:localStorage.getItem('userName')
     }
-  }
+  },
+  methods:{
+      logOut(){
+           localStorage.clear();
+           this.$router.push('/signin');
+      }
+    }
 }
 </script>
 
@@ -20,11 +26,21 @@ export default {
       <header>
         <nav class="navbar">
           <a><RouterLink :to="{path:'/'}">Home</RouterLink></a>
-          <a><RouterLink :to="{path:'cart'}">Cart</RouterLink></a>
-          <a><RouterLink :to="{path:'signin'}">Sign In</RouterLink></a>
-          <a><RouterLink :to="{path:'signup'}">Sign Up</RouterLink></a>
-          <a><RouterLink :to="{path:'add.product'}">Add Product</RouterLink></a>
-          <div class="user-name"> <b>{{ userName }}</b> </div>
+          <a><RouterLink :to="{path:'/cart'}">Cart</RouterLink></a>
+          <a><RouterLink :to="{path:'/signin'}">Sign In</RouterLink></a>
+          <a><RouterLink :to="{path:'/signup'}">Sign Up</RouterLink></a>
+          <a><RouterLink :to="{path:'/add.product'}">Add Product</RouterLink></a>
+
+          <!-- <img src="./assets/photos/avatar.jpeg" width="500px" height="500px"> -->
+          <div class="user-name">
+          <button class="dropdown">
+            <b>{{ userName }}</b> 
+                 <div class="dropdown-content">
+                       <a v-on:click="logOut()">Log out</a>
+                  </div>
+          </button>
+        </div>
+  
         </nav>
       </header>
     </div>
@@ -69,8 +85,28 @@ export default {
 
 .user-name {
   float: right; 
-  color: #fff;
-  padding: 15px;
+  padding: 10px;
 }
 
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #d2cfcf;
+  color: black;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  right: 0;
+}
+.dropdown-content a{
+  width: 100%;
+}
+
+.dropdown:focus .dropdown-content {
+  display: block;
+}
 </style>

@@ -1,5 +1,4 @@
 <template>
-    <h1 id="title">Add product</h1>
     <hr>
     <div class="product-container">
    <div class="product-card">

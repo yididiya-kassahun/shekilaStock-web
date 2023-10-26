@@ -27,10 +27,10 @@
    <div class="itemContainer" v-for="product in products" :key="product._id">
    <div class="card">
       <div class="item">
-        <img :src="baseUrl + product.image" width="200" height="200" alt="no image">
+       <RouterLink :to="{path:`/product.detail/${product._id}`}"><img :src="baseUrl + product.image" width="200" height="200" alt="no image"> </RouterLink> 
         <h4>{{ product.title }}</h4>
         <h5>Price: ${{ product.price }}</h5>
-       <RouterLink :to="{path:`/product.detail/${product._id}`}"> <button class="cartBtn">Add to cart</button></RouterLink>
+       <RouterLink :to="{path:`/cart/${product._id}`}"> <button class="cartBtn">Add to cart</button></RouterLink>
     </div>
    </div>
   </div>
