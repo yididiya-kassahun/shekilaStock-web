@@ -16,7 +16,7 @@
             <label for="_image">Product Image</label> <br>
             <input type="file" id="_image" @change="handleImageChange">
         </div>
-          <button type="submit" class="product-btn">Add product</button>
+        <button type="submit" class="product-btn">Add product</button>
         </form>
    </div>
     </div>

@@ -35,7 +35,7 @@ const routes = [
     meta: { title: 'add.product' }, 
   },
   {
-    path:'/cart/:id',
+    path:'/cart',
     name:'cart',
     beforeEnter : guardMyroute,
     component:Cart,

@@ -15,22 +15,16 @@
 
     <div class="home-container">
 
-   <!-- <div class="card">
-    <div class="item">
-        <img src="../assets/photos/clay3.webp" width="200px" height="200px">
-        <h4>Item 3</h4>
-        <h5>Price: $5.99</h5>
-        <button class="cartBtn">Add to cart</button>
-    </div>
-   </div> -->
-
    <div class="itemContainer" v-for="product in products" :key="product._id">
    <div class="card">
       <div class="item">
        <RouterLink :to="{path:`/product.detail/${product._id}`}"><img :src="baseUrl + product.image" width="200" height="200" alt="no image"> </RouterLink> 
         <h4>{{ product.title }}</h4>
         <h5>Price: ${{ product.price }}</h5>
-       <RouterLink :to="{path:`/cart/${product._id}`}"> <button class="cartBtn">Add to cart</button></RouterLink>
+        <form @submit.prevent="addToCart(product._id)">
+          <input type="hidden" :value="product._id">
+           <button type="submit" class="cartBtn">Add to cart</button>
+      </form>
     </div>
    </div>
   </div>
@@ -48,6 +42,7 @@ export default {
         return {
           products:[],
           baseUrl: 'http://localhost:3000/uploads/',
+          //productId:product._id,  
         }
     },
    mounted(){
@@ -56,6 +51,23 @@ export default {
                this.products = productItems.data.products;
               // console.log(this.products);
             })
+    },
+    methods:{
+      addToCart(prodId){
+        const formData = new FormData();
+        formData.append('productId',prodId);
+
+        const config = { headers: { 'Content-Type': 'multipart/form-data' } };
+        axios.post('add.cart',formData)
+        .then(product=>{
+           
+           return this.$router.push('/');
+        })
+        .catch(err=>{
+            console.log(err.message);
+            this.message = err.message;
+        })
+      }
     }
 
 }
