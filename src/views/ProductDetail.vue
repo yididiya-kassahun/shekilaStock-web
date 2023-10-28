@@ -67,6 +67,17 @@
 <div class="review">
     <h4><b>Customer reviews</b></h4>
     <hr>
+    <!-- <button>Add Comment</button>
+    <CommentModal/> -->
+    <Modal @close="toggleModal" :modalActive="modalActive">
+      <div class="modal-content">
+        <h5>Add your review</h5>
+        <hr>
+       <textarea cols="30" rows="10" placeholder="write your comment"></textarea>
+      </div>
+    </Modal>
+    <button @click="toggleModal" type="button">Add Comment</button>
+
     <div>
         <img src="../assets/photos/avatar.jpeg" width="40px" height="40px"> <b>Joe Moe </b> 
         <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Ducimus consequuntur veritatis, 
@@ -76,9 +87,9 @@
     <hr>
     <div>
         <img src="../assets/photos/avatar.jpeg" width="40px" height="40px">  <b>Joe Moe </b> 
-        <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Ducimus consequuntur veritatis, 
+        <label>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Ducimus consequuntur veritatis, 
             error distinctio minima commodi nam nihil nostrum ipsum, doloremque dolore quibusdam totam. 
-          </p>
+        </label>
          
     </div>
 
@@ -87,26 +98,38 @@
 
 <script>
 import axios from 'axios';
+import Modal from '../components/Modal.vue';
+import { ref } from 'vue';
 
 export default {
-    data () {
+    setup() {
+    const modalActive = ref(false);
+
+    const toggleModal = () => {
+      modalActive.value = !modalActive.value;
+    };
+
+    return { modalActive, toggleModal };
+  },
+    data() {
         return {
-            product:'',
+            product: '',
             id: this.$route.params.id,
-            baseUrl: 'http://localhost:3000/uploads/'
-        }
+            baseUrl: 'http://localhost:3000/uploads/',
+        };
     },
-    mounted(){
-            axios.get('product.detail/'+this.id)
-            .then(product=>{
-               this.product = product.data.product;
-              // console.log(this.products);
-            })
-    }
+    mounted() {
+        axios.get('product.detail/' + this.id)
+            .then(product => {
+            this.product = product.data.product;
+            // console.log(this.products);
+        });
+    },
+    components: { Modal },
 }
 </script>
 
-<style>
+<style lang="scss" scoped>
 .home-container {
   float: left;
   display: flex;
@@ -154,4 +177,21 @@ i{
     margin: 70px;
     width: 50%;
 }
+.modal-content {
+    display: flex;
+    flex-direction: column;
+
+    h1,
+    p {
+      margin-bottom: 16px;
+    }
+
+    h1 {
+      font-size: 32px;
+    }
+
+    p {
+      font-size: 18px;
+    }
+  }
 </style>
