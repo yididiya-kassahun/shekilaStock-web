@@ -10,8 +10,7 @@
   </div>
   <div class="grid-item">
         <h3 style="color: #ff9d2d;"><b>ETB:{{ product.price }}</b></h3>   
-               <P>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Eius animi minus facere!
-                 Quos iure omnis error illo voluptatibus </P>  
+               <P>{{ product.description }}</P>  
                  <div>
                     <i class="fa fa-star"></i>
                     <i class="fa fa-star"></i>
@@ -73,25 +72,19 @@
       <div class="modal-content">
         <h5>Add your review</h5>
         <hr>
-       <textarea cols="30" rows="10" placeholder="write your comment"></textarea>
+        <form @submit.prevent="addComment" >
+       <textarea rows="10" placeholder="write your comment" v-model="comment"></textarea>
+       <button type="submit">Add</button>
+       </form>
       </div>
     </Modal>
-    <button @click="toggleModal" type="button">Add Comment</button>
+    <button @click="toggleModal" class="commentBtn" type="button">Add Comment</button>
 
-    <div>
-        <img src="../assets/photos/avatar.jpeg" width="40px" height="40px"> <b>Joe Moe </b> 
-        <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Ducimus consequuntur veritatis, 
-            error distinctio minima commodi nam nihil nostrum ipsum, doloremque dolore quibusdam totam. 
-          </p>
+    <div v-for="comment in comments" :key="comment.productId">
+        <img src="../assets/photos/avatar.jpeg" width="40px" height="40px"> <b>{{ comment.userName }} </b> 
+        <p>{{ comment.comment }}</p>
     </div>
     <hr>
-    <div>
-        <img src="../assets/photos/avatar.jpeg" width="40px" height="40px">  <b>Joe Moe </b> 
-        <label>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Ducimus consequuntur veritatis, 
-            error distinctio minima commodi nam nihil nostrum ipsum, doloremque dolore quibusdam totam. 
-        </label>
-         
-    </div>
 
 </div>
 </template>
@@ -114,8 +107,11 @@ export default {
     data() {
         return {
             product: '',
+            comments:'',
             id: this.$route.params.id,
             baseUrl: 'http://localhost:3000/uploads/',
+            userName:localStorage.getItem('userName'),
+            comment:'',
         };
     },
     mounted() {
@@ -124,8 +120,32 @@ export default {
             this.product = product.data.product;
             // console.log(this.products);
         });
+        axios.get('get.comments/' + this.id)
+            .then(commentList => {
+            this.comments = commentList.data.comments;
+             console.log(this.comments);
+        });
     },
     components: { Modal },
+    methods:{
+       async addComment(){
+            const formData = new FormData();
+            formData.append('userName',this.userName);
+            formData.append('productId',this.id);
+            formData.append('comment',this.comment);
+
+            const config = { headers: { 'Content-Type': 'multipart/form-data' } };
+        
+         await axios.post('add.comment',formData,config)
+                .then(result=>{
+                   console.log(result);
+                   return this.$router.push('/products');
+                })
+                .catch(err=>{
+                    console.log(err);
+                })
+        }
+    }
 }
 </script>
 
@@ -192,6 +212,20 @@ i{
 
     p {
       font-size: 18px;
+    }
+    button {
+      padding: 10px 20px;
+      border: none;
+      font-size: 16px;
+      width: fit-content;
+      margin-top: 10px;
+      margin-left: 40%;
+      background-color:#ff9d2d;
+      color: #fff;
+      cursor: pointer;
+    }
+    textarea{
+        width: 90%;
     }
   }
 </style>

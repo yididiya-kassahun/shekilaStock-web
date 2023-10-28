@@ -40,7 +40,7 @@ export default {
             localStorage.setItem('userName',user.data.userName);
             localStorage.setItem('isLoggedin',user.data.isLoggedin);
             this.message = user.data.message;
-           return this.$router.push('/');
+           return this.$router.push('/products');
         })
         .catch(err=>{
             console.log(err.message);

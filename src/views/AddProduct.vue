@@ -16,6 +16,10 @@
             <label for="_image">Product Image</label> <br>
             <input type="file" id="_image" @change="handleImageChange">
         </div>
+        <div class="form-group">
+            <label for="_desc">Description</label> <br>
+            <textarea type="text" id="_desc" cols="65" rows="5" v-model="productData.description"> </textarea>
+        </div>
         <button type="submit" class="product-btn">Add product</button>
         </form>
    </div>
@@ -31,7 +35,8 @@ export default {
             productData:{
                 title:'',
                 price:'',
-                image:null
+                image:null,
+                description:''
             }
         }
     },
@@ -45,6 +50,7 @@ export default {
         formData.append('title',this.productData.title);
         formData.append('price',this.productData.price);
         formData.append('image',this.productData.image);
+        formData.append('description',this.productData.description);
         
         console.log("======"+this.productData.image);
 
@@ -53,7 +59,7 @@ export default {
          await axios.post('add.product',formData,config)
                 .then(result=>{
                    console.log(result);
-                   return this.$router.push('/');
+                   return this.$router.push('/products');
                 })
                 .catch(err=>{
                     console.log(err);
@@ -82,6 +88,13 @@ export default {
 
 
 input{
+  width: 80%;
+  padding: 12px 20px;
+  margin: 10px 0;
+  box-sizing: border-box;
+}
+
+textarea{
   width: 80%;
   padding: 12px 20px;
   margin: 10px 0;

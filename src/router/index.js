@@ -6,13 +6,22 @@ import home from '../views/home.vue';
 import productDetail from '../views/ProductDetail.vue';
 import AddProduct from '../views/AddProduct.vue';
 import Cart from '../views/Cart.vue';
+import Products from '../views/Products.vue';
 
 const routes = [
   {
     path:'/',
     name:'home',
     component:home,
-    meta: {title: 'home'}
+    meta: {
+      hideNavbar: true,
+     }
+  },
+  {
+    path:'/products',
+    name:'products',
+    component:Products,
+    meta: {title: 'products'}
   },
   {
     path:'/signin',

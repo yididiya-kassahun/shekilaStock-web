@@ -6,7 +6,7 @@
           <i @click="close" class="fa fa-close"></i>
           <!-- Modal Content -->
           <slot />
-          <button @click="close" type="button">Add</button>
+         
         </div>
       </transition>
     </div>
@@ -85,16 +85,6 @@ export default {
       }
     }
 
-    button {
-      padding: 10px 20px;
-      border: none;
-      font-size: 16px;
-      margin-top: 10px;
-      margin-left: 40%;
-      background-color:#ff9d2d;
-      color: #fff;
-      cursor: pointer;
-    }
   }
 }
 </style>

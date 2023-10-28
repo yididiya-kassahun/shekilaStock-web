@@ -24,8 +24,9 @@ export default {
   <main>
     <div class="container">
       <header>
-        <nav class="navbar">
+        <nav class="navbar" v-if="!$route.meta.hideNavbar">
           <a><RouterLink :to="{path:'/'}">Home</RouterLink></a>
+          <a><RouterLink :to="{path:'/products'}">Products</RouterLink></a>
           <a><RouterLink :to="{path:'/cart'}">Cart</RouterLink></a>
           <a><RouterLink :to="{path:'/signin'}">Sign In</RouterLink></a>
           <a><RouterLink :to="{path:'/signup'}">Sign Up</RouterLink></a>

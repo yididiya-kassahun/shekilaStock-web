@@ -1,5 +1,5 @@
 <template>
-    <h1 id="home-title">Product Detail</h1>
+    <h1 id="home-title"><i class="fa fa-shopping-cart"></i> Cart</h1>
     <hr>
     <div class="home-container">
     <div class="card" v-for="product in cartItems.product" :key="product._id">
