@@ -6,7 +6,9 @@
       <input
         type="text"
         id="search-input"
+        v-model="searchQuery"
         placeholder="Search..."
+        @input="filterProducts"
       />
       <button type="submit" id="search-button">
         <i class="fa fa-search"></i>
@@ -15,8 +17,9 @@
 
     <div class="home-container">
 
-   <div class="itemContainer" v-for="product in products" :key="product._id">
-   <div class="card">
+   <div class="itemContainer">
+    <div class="row">
+   <div class="card" v-for="(product,index) in filteredProducts" :key="product._id" :class="{ 'new-row': index % 6 === 0 }">
       <div class="item">
        <RouterLink :to="{path:`/product.detail/${product._id}`}"><img :src="baseUrl + product.image" width="200" height="200" alt="no image"> </RouterLink> 
         <h4>{{ product.title }}</h4>
@@ -28,8 +31,8 @@
     </div>
    </div>
   </div>
-
  </div>
+</div>
 </template>
 
 <script>
@@ -40,11 +43,19 @@ export default {
 
     data () {
         return {
+          searchQuery: '',
           products:[],
           baseUrl: 'http://localhost:3000/uploads/',
           //productId:product._id,  
         }
     },
+    computed: {
+    filteredProducts() {
+      return this.products.filter((product) =>
+        product.title.toLowerCase().includes(this.searchQuery.toLowerCase())
+      );
+    },
+  },
    mounted(){
             axios.get('get.products')
             .then(productItems=>{
@@ -67,7 +78,11 @@ export default {
             console.log(err.message);
             this.message = err.message;
         })
-      }
+      },
+       filterProducts() {
+      // This method is called whenever the search input changes
+      // It will automatically update the computed property filteredProducts
+    },
     },
 
 }
@@ -83,16 +98,23 @@ export default {
 #home-title{
     margin-left: 40%;
 }
+.itemContainer{
+  margin: 40px;
+}
 .card{
   background-color: #fff;
   box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
   transition: 0.3s;
   width: fit-content;
   height: fit-content;
-  margin: 15%;
+  margin: 1%;
 }
-.itemContainer{
-  margin: 20px;
+.row {
+  display: flex;
+  flex-wrap: wrap;
+}
+.new-row {
+  clear: left;
 }
 .item{
     padding: 10px;
