@@ -7,56 +7,62 @@ import productDetail from '../views/ProductDetail.vue';
 import AddProduct from '../views/AddProduct.vue';
 import Cart from '../views/Cart.vue';
 import Products from '../views/Products.vue';
+import Checkout from '../views/Checkout.vue';
 
 const routes = [
   {
-    path:'/',
-    name:'home',
-    component:home,
+    path: "/",
+    name: "home",
+    component: home,
     meta: {
       hideNavbar: true,
-     }
+    },
   },
   {
-    path:'/products',
-    name:'products',
-    component:Products,
-    meta: {title: 'products'}
+    path: "/products",
+    name: "products",
+    component: Products,
+    meta: { title: "products" },
   },
   {
-    path:'/signin',
-    name:'signin',
-    component:login,
-    meta: {title: 'signin'}
-
+    path: "/signin",
+    name: "signin",
+    component: login,
+    meta: { title: "signin" },
   },
   {
-    path:'/signup',
-    name:'signup',
-    component:register,
-    meta: {title: 'signup'}
+    path: "/signup",
+    name: "signup",
+    component: register,
+    meta: { title: "signup" },
   },
   {
-    path:'/add.product',
-    name:'add.product',
-    component:AddProduct,
-    beforeEnter : guardMyroute,
-    meta: { title: 'add.product' }, 
+    path: "/add.product",
+    name: "add.product",
+    component: AddProduct,
+    beforeEnter: guardMyroute,
+    meta: { title: "add.product" },
   },
   {
-    path:'/cart',
-    name:'cart',
-    beforeEnter : guardMyroute,
-    component:Cart,
-    meta: {title: 'cart'}
-
+    path: "/cart",
+    name: "cart",
+    beforeEnter: guardMyroute,
+    component: Cart,
+    meta: { title: "cart" },
   },
   {
-    path:'/product.detail/:id',
-    name:'product.detail',
-    component:productDetail,
-    meta: {title: 'product.detail'}
-  }
+    path: "/product.detail/:id",
+    name: "product.detail",
+    component: productDetail,
+    meta: { title: "product.detail" },
+  },
+  {
+    path: "/checkout/:id",
+    name: "checkout",
+    component: Checkout,
+    beforeEnter: guardMyroute,
+    meta: { title: "checkout" },
+  },
 ];
 const router = createRouter({
   history:createWebHistory(import.meta.env.BASE_URL),

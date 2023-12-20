@@ -53,7 +53,7 @@
                 </tr>
                 <tr>
                     <td>
-                        <button class="bttn" style="font-weight: bold;">Buy now</button>
+                      <RouterLink :to="{path:`/checkout/${product._id}`}" ><button class="bttn" style="font-weight: bold;">Check out!</button></RouterLink>  
                         <button class="bttn" style="background-color: #fcd1a0b7;color: #ff9d2d;font-weight: bold;">Add to cart</button>
                     </td>
                 </tr>
